@@ -1,0 +1,155 @@
+﻿                                                @* updateeeeeeeeeeeeeeeeeeeeeeeeeeeeeee *@
+
+@using book.Models;
+@{
+    Layout = "_Home";
+}
+@model List<Book>
+<html>
+<head>
+    <link href="/css/AllBooks.css" rel="stylesheet" />
+    <style>
+        .classicbtn {
+            background-color: black; /* لون الخلفية */
+            color: white; /* لون النص */
+            border: none; /* بدون حدود */
+            padding: 10px 20px; /* مسافة داخلية */
+            text-align: center; /* مركزية النص */
+            text-decoration: none; /* إزالة التسطير */
+            display: inline-block; /* لعرضه كعنصر خطي */
+            font-size: 16px; /* حجم الخط */
+            margin: 4px 2px; /* هامش */
+            cursor: pointer; /* يد المؤشر عند التمرير */
+            border-radius: 5px; /* زوايا دائرية */
+            width: 200px; /* عرض الزر */
+            /* transition: background-color 1s; /* تأثير الانتقال */ */
+        }
+
+            .classicbtn:hover {
+                background: linear-gradient(90deg, #000 0%, #888 100%); /* تدرج من الأسود إلى الرمادي */
+                /* transition: background-color 1s; */
+            }
+
+        .button-container {
+            text-align: center; /* محاذاة الزر في المنتصف أفقيًا */
+            
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, #000 0%, #888 100%);
+            color: black;
+        }
+
+
+        .add-button {
+            background-color: black;
+            color: white;
+        }
+
+            .add-button:hover {
+                background-color: #888 ;
+            }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+   
+    <br />
+    
+
+    <div class="part">
+
+        @foreach (var item in Model.Where(s => s.gener == "Classic").Take(4))
+        {
+            <div class="item custom-item">
+                <img src="/image/@item.photo" alt="photo" />
+                <h2>@item.name</h2>
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.id">View Details</a>
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-primary" asp-controller="CRUD" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    <a class="btn btn-primary" asp-controller="CRUD" asp-action="Update" asp-route-id="@item.id">Update</a>
+                }
+            </div>
+        }
+    </div>
+   
+    <div class="button-container">
+    <form asp-action="AllType" asp-route-type="Classic" method="get">
+        <button type="submit" class="classicbtn">Classic Books</button>
+    </form>
+    </div>
+
+    <br />
+    <br />
+
+   @*  <a asp-action="AllType" asp-route-type="Comedy" >Comedy Books</a> *@
+
+    <div class="part">
+
+        @foreach (var item in Model.Where(s => s.gener == "Comedy").Take(4))
+        {
+            <div class="item custom-item">
+                <img src="/image/@item.photo" alt="photo" />
+                <h2>@item.name</h2>
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.id">View Details</a>
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-primary" asp-controller="CRUD" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    <a class="btn btn-primary" asp-controller="CRUD" asp-action="Update" asp-route-id="@item.id">Update</a>
+                }
+            </div>
+        }
+    </div>
+    <div class="button-container">
+    <form asp-action="AllType" asp-route-type="Comedy" method="get">
+        <button type="submit" class="classicbtn">Comedy Books</button>
+    </form>
+    </div>
+    <br />
+    <br />
+    
+    <div class="part">
+        @foreach (var item in Model.Where(s => s.gener == "Scientific").Take(4))
+        {
+            <div class="item custom-item">
+                <img src="/image/@item.photo" alt="photo" />
+                <h2>@item.name</h2>
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.id">View Details</a>
+                
+                @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                {
+                    <a class="btn btn-primary" asp-controller="CRUD" asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                    <a class="btn btn-primary" asp-controller="CRUD" asp-action="Update" asp-route-id="@item.id">Update</a>
+                }
+
+            </div>
+        }
+    </div>
+
+    <div class="button-container">
+
+    <form asp-action="AllType" asp-route-type="Scientific" method="get">
+        <button type="submit" class="classicbtn">Scientific Books</button>
+    </form>
+
+    </div>
+    <br />
+    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+    {
+        <div class="button-container">
+            <a class="btn btn-success add-button" asp-controller="CRUD" asp-action="Add">Add New Book</a>
+        </div>
+    }
+   
+    <br />
+    <br />
+
+
+
+</body>
+</html>
