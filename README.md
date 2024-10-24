@@ -1,6 +1,3 @@
-Here’s a structured **README** for your **Library Management System** project, based on the provided details. It includes a brief overview, instructions for installation, usage, and other relevant information:
-
----
 
 # Library Management System
 
